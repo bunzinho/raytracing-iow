@@ -16,9 +16,9 @@ int main(int argc, char *argv[])
 
 		for (int i = 0; i < image_width; ++i)
 		{
-			auto r = static_cast<double>(i) / (image_width - 1);
-			auto g = static_cast<double>(j) / (image_height - 1);
-			auto b = 0.25;
+			auto r = static_cast<float>(i) / (image_width);
+			auto g = static_cast<float>(j) / (image_height);
+			auto b = 0.25f;
 
 			int ir = static_cast<int>(255.999 * r);
 			int ig = static_cast<int>(255.999 * g);
