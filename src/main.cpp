@@ -1,12 +1,16 @@
 #include <iostream>
 #include <fstream>
 
+#include "color.h"
+#include "vec3.h"
+
 int main(int argc, char *argv[])
 {
 	auto ppmfile = std::ofstream("output.ppm");
 	
-	const int image_width = 256;
-	const int image_height = 256;
+	const auto aspect_ratio = 16.0 / 9.0;
+	const auto image_height = 400;
+	const int image_width = static_cast<int>(image_height * aspect_ratio);
 
 	ppmfile << "P3\n" << image_width << ' ' << image_height << "\n255\n";
 
@@ -20,11 +24,8 @@ int main(int argc, char *argv[])
 			auto g = static_cast<float>(j) / (image_height);
 			auto b = 0.25f;
 
-			int ir = static_cast<int>(255.999 * r);
-			int ig = static_cast<int>(255.999 * g);
-			int ib = static_cast<int>(255.999 * b);
-
-			ppmfile << ir << ' ' << ig << ' ' << ib << ' ';
+			auto pixel_color = color(r, g, b);
+			write_color(ppmfile, pixel_color);
 		}
 		ppmfile << std::endl;
 	}
