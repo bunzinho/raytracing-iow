@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 
 	const auto filename = "output.ppm";
 	const auto aspect_ratio = 16.0f / 9.0f;
-	const auto image_height = 225;
+	const auto image_height = 400;
 	const auto image_width = static_cast<int>(image_height * aspect_ratio);
 
 	// Camera
