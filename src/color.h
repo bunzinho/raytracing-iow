@@ -10,12 +10,12 @@ void write_color(std::ostream& out, color pixel_color, int samples_per_pixel)
 	auto b = pixel_color.z();
 
 	// Divide the color by the number of samples.
-	auto scale = 1.0f / samples_per_pixel;
-	r *= scale;
-	g *= scale;
-	b *= scale;
+	auto scale = 1.0 / samples_per_pixel;
+	r = sqrt(r * scale);
+	g = sqrt(g * scale);
+	b = sqrt(b * scale);
 
-	out << static_cast<int>(std::round(255.0f * clamp(r, 0.0f, 1.0f))) << ' '
-		<< static_cast<int>(std::round(255.0f * clamp(g, 0.0f, 1.0f))) << ' '
-		<< static_cast<int>(std::round(255.0f * clamp(b, 0.0f, 1.0f))) << ' ';
+	out << static_cast<int>(std::round(255.0 * clamp(r, 0.0, 1.0))) << ' '
+		<< static_cast<int>(std::round(255.0 * clamp(g, 0.0, 1.0))) << ' '
+		<< static_cast<int>(std::round(255.0 * clamp(b, 0.0, 1.0))) << ' ';
 }

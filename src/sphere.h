@@ -6,15 +6,15 @@
 class sphere : public hittable {
 public:
 	sphere() {}
-	sphere(vec3 c, float r) : center(c), radius(r) {};
+	sphere(vec3 c, double r) : center(c), radius(r) {};
 
-	virtual bool hit(const ray& r, float t_min, float t_max, hit_record& rec) const override;
+	virtual bool hit(const ray& r, double t_min, double t_max, hit_record& rec) const override;
 
 	vec3 center;
-	float radius{};
+	double radius{};
 };
 
-bool sphere::hit(const ray& r, float t_min, float t_max, hit_record& rec) const
+bool sphere::hit(const ray& r, double t_min, double t_max, hit_record& rec) const
 {
 	auto oc = r.origin() - center;
 	auto a = r.direction().length_squared();

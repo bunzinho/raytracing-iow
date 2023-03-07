@@ -20,7 +20,7 @@ public:
 		return dir;
 	}
 
-	vec3 at(float t) const
+	vec3 at(double t) const
 	{
 		return orig + t * dir;
 	}
