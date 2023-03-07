@@ -27,5 +27,12 @@ inline float random_float(float min, float max)
 	return min + (max - min) * random_float();
 }
 
+inline float clamp(float x, float min, float max)
+{
+	if (x < min) { return min; }
+	if (x > max) { return max; }
+	return x;
+}
+
 #include "ray.h"
 #include "vec3.h"
