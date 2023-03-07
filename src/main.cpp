@@ -1,34 +1,21 @@
 #include <iostream>
 #include <fstream>
 
+#include "rtweekend.h"
+
 #include "color.h"
-#include "ray.h"
-#include "vec3.h"
+#include "hittable_list.h"
+#include "sphere.h"
 
-float hit_sphere(const vec3& center, const float radius, const ray& r)
+color ray_color(const ray& r, const hittable& world)
 {
-	auto oc = r.origin() - center;
-	auto a = r.direction().length_squared();
-	auto b = dot(oc, r.direction());
-	auto c = oc.length_squared() - radius*radius;
-	auto discriminant = b*b - a*c;
-	if (discriminant < 0)
+	hit_record rec;
+	if (world.hit(r, 0, infinity, rec))
 	{
-		return -1.0f;
-	}
-	return (-b - sqrt(discriminant)) / a;
-}
-
-color ray_color(const ray& r)
-{
-	auto t = hit_sphere(vec3(0, 0, -1), 0.5f, r);
-	if (t > 0.0f)
-	{
-		vec3 N = unit_vector(r.at(t) - vec3(0, 0, -1));
-		return 0.5f * color(N.x() + 1, N.y() + 1, N.z() + 1);
+		return 0.5f * (rec.normal + color(1, 1, 1));
 	}
 	auto unit_direction = unit_vector(r.direction());
-	t = 0.5f * (unit_direction.y() + 1.0f);
+	auto t = 0.5f * (unit_direction.y() + 1.0f);
 	return (1.0f - t) * color(1.0f, 1.0f, 1.0f) + t * color(0.5f, 0.7f, 1.0f);
 }
 
@@ -40,6 +27,12 @@ int main(int argc, char* argv[])
 	const auto aspect_ratio = 16.0f / 9.0f;
 	const auto image_height = 400;
 	const auto image_width = static_cast<int>(image_height * aspect_ratio);
+
+	// World
+
+	hittable_list world;
+	world.add(make_shared<sphere>(vec3(0, 0, -1), 0.5f));
+	world.add(make_shared<sphere>(vec3(0, -100.5f, -1), 100.0f));
 
 	// Camera
 
@@ -67,7 +60,7 @@ int main(int argc, char* argv[])
 			auto v = float(j) / (image_height - 1);
 			ray r = ray(origin, lower_left_corner + u * horizontal + v * vertical - origin);
 
-			auto pixel_color = ray_color(r);
+			auto pixel_color = ray_color(r, world);
 			write_color(ppmfile, pixel_color);
 		}
 		ppmfile << std::endl;
