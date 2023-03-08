@@ -28,8 +28,8 @@ color ray_color(const ray& r, const hittable& world, int depth)
 		}
 		return color(0, 0, 0);
 	}
-	auto unit_direction = unit_vector(r.direction());
-	auto t = 0.5 * (unit_direction.y() + 1.0);
+    const vec3 unit_direction = unit_vector(r.direction());
+    const double t = 0.5 * (unit_direction.y() + 1.0);
 	return (1.0 - t) * color(1.0, 1.0, 1.0) + t * color(0.5, 0.7, 1.0);
 }
 
@@ -37,12 +37,12 @@ int main(int argc, char* argv[])
 {
 	// Image
 
-	const auto filename	= "output.ppm";
-	const auto aspect_ratio = 16.0 / 9.0;
-	const int  image_height = 360;
-	const int  image_width = static_cast<int>(image_height * aspect_ratio);
-	const int  samples_per_pixel = 40;
-    const int  max_depth = 50;
+	constexpr auto filename	= "output.ppm";
+	constexpr auto aspect_ratio = 16.0 / 9.0;
+	constexpr int  image_height = 360;
+	constexpr int  image_width = static_cast<int>(image_height * aspect_ratio);
+	constexpr int  samples_per_pixel = 50;
+    constexpr int  max_depth = 25;
 
 	// World
 
@@ -76,9 +76,9 @@ int main(int argc, char* argv[])
 			auto pixel_color = color(0, 0, 0);
 			for (int s = 0; s < samples_per_pixel; s++)
 			{
-				auto u = (i + random_double()) / static_cast<double>(image_width - 1);
-				auto v = (j + random_double()) / static_cast<double>(image_height - 1);
-				auto r = cam.get_ray(u, v);
+				const auto u = (i + random_double()) / static_cast<double>(image_width - 1);
+				const auto v = (j + random_double()) / static_cast<double>(image_height - 1);
+				const auto r = cam.get_ray(u, v);
 				pixel_color += ray_color(r, world, max_depth);
 			}
 			write_color(ppmfile, pixel_color, samples_per_pixel);
