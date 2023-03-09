@@ -64,9 +64,15 @@ int main(int argc, char* argv[])
 
 	// Render 
 
-	auto ppmfile = std::ofstream(filename);
-	ppmfile << "P3\n" << image_width << ' ' << image_height << "\n255\n";
-
+	auto ppmfile = std::ofstream(filename, std::ios_base::out | std::ios_base::binary);
+	if (ppmfile.fail())
+	{
+		std::cerr << "error : failed to open file " << filename << " for writing ";;
+		return EXIT_FAILURE;
+	}
+	
+	ppmfile << "P6 " << image_width << " " << image_height << " " << "255 ";
+	
 	for (int j = image_height - 1; j >= 0; --j)
 	{
 		std::cerr << "\rlines remaining: " << j << ' ' << std::flush;
@@ -83,6 +89,6 @@ int main(int argc, char* argv[])
 			}
 			write_color(ppmfile, pixel_color, samples_per_pixel);
 		}
-		ppmfile << std::endl;
 	}
+	return EXIT_SUCCESS;
 }
