@@ -50,13 +50,13 @@ int main(int argc, char* argv[])
 	
 	auto mat_ground = make_shared<lambertian>(color(32.0/255, 80.0/255, 150.0/255));
 	auto mat_center = make_shared<lambertian>(color(235.0/255, 70.0/255, 95.0/255));
-	auto mat_left   = make_shared<metal>(color(0.8, 0.8, 0.8));
-	auto mat_right  = make_shared<metal>(color(0.8, 0.6, 0.2));
+	auto mat_left   = make_shared<metal>(color(0.7, 0.7, 0.7), 0.96);
+	auto mat_right  = make_shared<metal>(color(255.0/255, 215.0/255, 88.0/255), 0.6);
 
 	world.add(make_shared<sphere>(vec3(0.0, -100.5, -1.0), 100.0, mat_ground));
 	world.add(make_shared<sphere>(vec3(0.0,	   0.0, -1.0),   0.5, mat_center));
-	world.add(make_shared<sphere>(vec3(-1.0,   0.0, -1.0),   0.5, mat_left));
-	world.add(make_shared<sphere>(vec3(1.0,    0.0, -1.0),   0.5, mat_right));
+	world.add(make_shared<sphere>(vec3(-1.1,   0.0, -1.0),   0.5, mat_left));
+	world.add(make_shared<sphere>(vec3(1.1,    0.0, -1.0),   0.5, mat_right));
 
 	// Camera
 
