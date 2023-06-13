@@ -30,7 +30,11 @@ color ray_color(const ray& r, const hittable& world, int depth)
 	}
     const vec3 unit_direction = unit_vector(r.direction());
     const double t = 0.5 * (unit_direction.y() + 1.0);
-	return (1.0 - t) * color(1.0, 1.0, 1.0) + t * color(0.5, 0.7, 1.0);
+	
+	auto white = color(1.0, 1.0, 1.0);
+	auto light_blue = color(0.5, 0.7, 1.0);
+
+	return lerp(white, light_blue, t);
 }
 
 int main(int argc, char* argv[])

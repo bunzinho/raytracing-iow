@@ -180,5 +180,10 @@ vec3 refract(const vec3& uv, const vec3& n, double etai_over_etat)
     return r_out_prep + r_out_parallel;
 }
 
+inline vec3 lerp(const vec3& v0, const vec3& v1, const double t)
+{
+	return (1.0 - t) * v0 + t * v1;
+}
+
 // Type aliases for vec3
 using color = vec3;    // RGB color

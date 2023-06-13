@@ -15,7 +15,7 @@ constexpr double pi = 3.14159265358979323846;
 
 constexpr inline double degrees_to_radians(double degrees)
 {
-	return degrees * pi / 180.0;
+	return degrees * (pi / 180.0);
 }
 
 inline double random_double()
