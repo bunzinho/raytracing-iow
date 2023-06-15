@@ -1,6 +1,5 @@
 #pragma once
 
-#include <cmath>
 #include <limits>
 #include <memory>
 #include <cstdlib>
@@ -36,6 +35,3 @@ inline double clamp(double x, double min, double max)
 	if (x > max) { return max; }
 	return x;
 }
-
-#include "ray.h"
-#include "vec3.h"
